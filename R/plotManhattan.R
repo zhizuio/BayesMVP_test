@@ -1,29 +1,29 @@
 #' @title plot Manhattan-like plots
 #' @description
-#' Plot Manhattan-like plots for marginal posterior inclusion probabilities 
-#' (mPIP) and numbers of responses of association for predictors of a 
+#' Plot Manhattan-like plots for marginal posterior inclusion probabilities
+#' (mPIP) and numbers of responses of association for predictors of a
 #' \code{BayesMVP} class object.
 #' @importFrom graphics axis box text par plot.default segments
 #' @name plotManhattan
-#' 
+#'
 #' @param x an object of class \code{BayesMVP}
-#' @param manhattan value(s) in \code{c('mPIP', 'numResponse')}. 
-#' \code{manhattan='mPIP'} shows the Manhattan-like plot of the marginal 
-#' posterior inclusion probabilities (mPIP). \code{manhattan='numResponse'} 
-#' shows the Manhattan-like plot of the number of responses. The default is 
+#' @param manhattan value(s) in \code{c('mPIP', 'numResponse')}.
+#' \code{manhattan='mPIP'} shows the Manhattan-like plot of the marginal
+#' posterior inclusion probabilities (mPIP). \code{manhattan='numResponse'}
+#' shows the Manhattan-like plot of the number of responses. The default is
 #' to show both figures.
 #' @param x.loc a vector of features distance
-#' @param axis.label a vector of predictor names which are shown in the 
-#' Manhattan-like plot. The value \code{"NULL"} only showing the indices. The 
+#' @param axis.label a vector of predictor names which are shown in the
+#' Manhattan-like plot. The value \code{"NULL"} only showing the indices. The
 #' default \code{"auto"} show the predictor names from the original data.
-#' @param mark.responses a vector of response names which are shown in the 
+#' @param mark.responses a vector of response names which are shown in the
 #' Manhattan-like plot for the mPIP
 #' @param mark.pos the location of the marked text relative to the point
 #' @param xlab1 a title for the x axis of Manhattan-like plot for the mPIP
 #' @param ylab1 a title for the y axis of Manhattan-like plot for the mPIP
 #' @param xlab2 a title for the x axis of Manhattan-like plot for the numbers of responses
 #' @param ylab2 a title for the y axis of Manhattan-like plot for the numbers of responses
-#' @param threshold threshold for showing number of response variables 
+#' @param threshold threshold for showing number of response variables
 #' significantly associated with each feature
 #' @param las graphical parameter of plot.default
 #' @param cex.axis graphical parameter of plot.default
@@ -33,29 +33,15 @@
 #' @param ... other arguments
 #'
 #' @examples
-#' data("exampleEQTL", package = "BayesMVP")
-#' hyperpar <- list(a_w = 2, b_w = 5)
-#'
-#' set.seed(9173)
-#' fit <- BayesMVP(
-#'   Y = exampleEQTL[["blockList"]][[1]],
-#'   X = exampleEQTL[["blockList"]][[2]],
-#'   data = exampleEQTL[["data"]], outFilePath = tempdir(),
-#'   nIter = 10, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-#'   hyperpar = hyperpar, tmpFolder = "tmp/"
-#' )
-#'
-#' ## check output
-#' # show the Manhattan-like plots
-#' plotManhattan(fit)
+#' x <- 1
 #'
 #' @export
-plotManhattan <- function(x, manhattan = c("mPIP", "numResponse"), 
-                          x.loc = FALSE, axis.label = "auto", 
-                          mark.responses = NULL, xlab1 = "Predictors", 
-                          ylab1 = "mPIP", xlab2 = "Predictors", 
-                          ylab2 = "No. of responses", threshold = 0.5, las = 0, 
-                          cex.axis = 1, mark.pos = c(0, 0), mark.color = 2, 
+plotManhattan <- function(x, manhattan = c("mPIP", "numResponse"),
+                          x.loc = FALSE, axis.label = "auto",
+                          mark.responses = NULL, xlab1 = "Predictors",
+                          ylab1 = "mPIP", xlab2 = "Predictors",
+                          ylab2 = "No. of responses", threshold = 0.5, las = 0,
+                          cex.axis = 1, mark.pos = c(0, 0), mark.color = 2,
                           mark.cex = 0.8, header = "", ...) {
   if (!inherits(x, "BayesMVP")) {
     stop("Use only with a \"BayesMVP\" object")
@@ -100,11 +86,13 @@ plotManhattan <- function(x, manhattan = c("mPIP", "numResponse"),
   if ("mPIP" %in% manhattan) {
     par(mar = c(4, 4, 4, 2))
 
-    plot.default(as.vector(gamma) ~ 
-                   rep(seq_len(nrow(gamma)), times = ncol(gamma)), 
-                 xlim = c(1, nrow(gamma)), ylim = c(0, max(gamma)), 
-                 xaxt = "n", bty = "n", ylab = ylab1, xlab = xlab1, 
-                 main = "", pch = 19, ...)
+    plot.default(
+      as.vector(gamma) ~
+        rep(seq_len(nrow(gamma)), times = ncol(gamma)),
+      xlim = c(1, nrow(gamma)), ylim = c(0, max(gamma)),
+      xaxt = "n", bty = "n", ylab = ylab1, xlab = xlab1,
+      main = "", pch = 19, ...
+    )
     axis(1, at = x.loc, labels = names(x.loc), las = las, cex.axis = cex.axis)
     box()
 
@@ -112,10 +100,12 @@ plotManhattan <- function(x, manhattan = c("mPIP", "numResponse"),
     if (!is.null(mark.responses)) {
       name.responses <- colnames(read.table(x$output$Y, header = TRUE))
       if (!is.na(match(mark.responses, name.responses)[1])) {
-        text(rep(x.loc, times = length(mark.responses)) + mark.pos[1], 
-             as.vector(gamma[x.loc, name.responses %in% mark.responses]) + 
-               mark.pos[2], labels = rep(mark.responses, each = length(x.loc)), 
-             col = mark.color, cex = mark.cex)
+        text(rep(x.loc, times = length(mark.responses)) + mark.pos[1],
+          as.vector(gamma[x.loc, name.responses %in% mark.responses]) +
+            mark.pos[2],
+          labels = rep(mark.responses, each = length(x.loc)),
+          col = mark.color, cex = mark.cex
+        )
       } else {
         stop("The given response names are not consistent with the data")
       }
@@ -126,15 +116,18 @@ plotManhattan <- function(x, manhattan = c("mPIP", "numResponse"),
   if ("numResponse" %in% manhattan) {
     par(mar = c(6, 4, 3, 2))
     no.gamma <- rowSums(gamma >= threshold)
-    plot.default(no.gamma ~ c(seq_len(nrow(gamma))), xlim = c(1, nrow(gamma)), 
-                 ylim = c(0, max(no.gamma) + 0.3), type = "n", xaxt = "n", 
-                 ylab = ylab2, xlab = xlab2, main = "", ...)
+    plot.default(no.gamma ~ c(seq_len(nrow(gamma))),
+      xlim = c(1, nrow(gamma)),
+      ylim = c(0, max(no.gamma) + 0.3), type = "n", xaxt = "n",
+      ylab = ylab2, xlab = xlab2, main = "", ...
+    )
     segments(seq_len(nrow(gamma)), 0, seq_len(nrow(gamma)), no.gamma)
     axis(1, at = x.loc, labels = names(x.loc), las = las, cex.axis = cex.axis)
 
-    text(nrow(gamma) / 8, -max(no.gamma) / 1.3, 
-         paste("NOTE: Number of responses with mPIP >=", threshold), 
-         cex = .5, xpd = NA)
+    text(nrow(gamma) / 8, -max(no.gamma) / 1.3,
+      paste("NOTE: Number of responses with mPIP >=", threshold),
+      cex = .5, xpd = NA
+    )
   }
 
   title(paste0("\n\n", header), outer = TRUE)

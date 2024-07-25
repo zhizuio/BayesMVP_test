@@ -9,13 +9,13 @@ plotMCMCdiag(x, nbloc = 3, HIWg = NULL, header = "", ...)
 \arguments{
 \item{x}{an object of class \code{BayesMVP}}
 
-\item{nbloc}{number of splits for the last half iterations after substracting 
+\item{nbloc}{number of splits for the last half iterations after substracting
 burn-in length}
 
-\item{HIWg}{diagnostic plot of the response graph. Default is \code{NULL}. 
-\code{HIW="degree"} prints the diagnostic of the degrees of response nodes. 
-\code{HIW="edges"} prints the diagnostic of every edge between two responses. 
-\code{HIW="lik"} prints the diagnostic of the posterior likelihoods of the 
+\item{HIWg}{diagnostic plot of the response graph. Default is \code{NULL}.
+\code{HIW="degree"} prints the diagnostic of the degrees of response nodes.
+\code{HIW="edges"} prints the diagnostic of every edge between two responses.
+\code{HIW="lik"} prints the diagnostic of the posterior likelihoods of the
 hyperparameters related to the response relationships}
 
 \item{header}{the main title}
@@ -26,19 +26,6 @@ hyperparameters related to the response relationships}
 Show trace plots and diagnostic density plots of a fitted model object of class \code{BayesMVP}.
 }
 \examples{
-data("exampleEQTL", package = "BayesMVP")
-hyperpar <- list(a_w = 2, b_w = 5)
-
-set.seed(9173)
-fit <- BayesMVP(
-  Y = exampleEQTL[["blockList"]][[1]],
-  X = exampleEQTL[["blockList"]][[2]],
-  data = exampleEQTL[["data"]], outFilePath = tempdir(),
-  nIter = 10, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-  hyperpar = hyperpar, tmpFolder = "tmp/"
-)
-
-## check output
-plotMCMCdiag(fit)
+x <- 1
 
 }

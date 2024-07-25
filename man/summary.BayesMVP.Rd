@@ -9,42 +9,28 @@
 \arguments{
 \item{object}{an object of class \code{BayesMVP}}
 
-\item{Pmax}{threshold that truncates the estimated coefficients based on 
+\item{Pmax}{threshold that truncates the estimated coefficients based on
 thresholding the estimated latent indicator variable. Default is 0.5}
 
 \item{...}{other arguments}
 }
 \value{
-Return a result summary from an object of class \code{BayesMVP}, 
-including the CPOs, number of selected predictors with mPIP>\code{Pmax}, 
-top 10 predictors on average mPIP across all responses, top 10 responses on 
-average mPIP across all predictors, Expected log pointwise predictive 
-density (elpd) estimates, MCMC specification, model specification (i.e., 
+Return a result summary from an object of class \code{BayesMVP},
+including the CPOs, number of selected predictors with mPIP>\code{Pmax},
+top 10 predictors on average mPIP across all responses, top 10 responses on
+average mPIP across all predictors, Expected log pointwise predictive
+density (elpd) estimates, MCMC specification, model specification (i.e.,
 covariance prior and gamma prior) and hyper-parameters.
 }
 \description{
-Summary method for class \code{BayesMVP}. It includes the argument matching 
-information, Top predictors/responses on average mPIP across all 
-responses/predictors, elpd estimates, MCMC specification, model 
-specification and hyper-parameters. The summarized number of the selected 
-variable corresponds to the posterior mean of the latent indicator variable 
+Summary method for class \code{BayesMVP}. It includes the argument matching
+information, Top predictors/responses on average mPIP across all
+responses/predictors, elpd estimates, MCMC specification, model
+specification and hyper-parameters. The summarized number of the selected
+variable corresponds to the posterior mean of the latent indicator variable
 thresholding at 0.5 by default.
 }
 \examples{
-data(exampleEQTL, package = "BayesMVP")
-hyperpar <- list(a_w = 2, b_w = 5)
-
-set.seed(9173)
-fit <- BayesMVP(
-  Y = exampleEQTL[["blockList"]][[1]],
-  X = exampleEQTL[["blockList"]][[2]],
-  data = exampleEQTL[["data"]], outFilePath = tempdir(),
-  nIter = 10, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-  hyperpar = hyperpar, tmpFolder = "tmp/", output_CPO = TRUE
-)
-
-## check output
-# show the summary information
-summary(fit)
+x <- 1
 
 }

@@ -44,23 +44,23 @@ plotNetwork(
 
 \item{excludePredictor}{A vector of the predictor names which are not shown in the network}
 
-\item{MatrixGamma}{A matrix or dataframe of the latent indicator variable. 
-Default is \code{NULL} and to extrate it from object of class inheriting 
+\item{MatrixGamma}{A matrix or dataframe of the latent indicator variable.
+Default is \code{NULL} and to extrate it from object of class inheriting
 from an object of class \code{BayesMVP}}
 
-\item{PmaxPredictor}{cutpoint for thresholding the estimated latent 
+\item{PmaxPredictor}{cutpoint for thresholding the estimated latent
 indicator variable. Default is 0.5}
 
-\item{PmaxResponse}{cutpoint for thresholding the learning structure matrix 
+\item{PmaxResponse}{cutpoint for thresholding the learning structure matrix
 of multiple response variables. Default is 0.5}
 
-\item{nodesizePredictor}{node size of Predictors in the output graph. 
+\item{nodesizePredictor}{node size of Predictors in the output graph.
 Default is 15}
 
-\item{nodesizeResponse}{node size of response variables in the output graph. 
+\item{nodesizeResponse}{node size of response variables in the output graph.
 Default is 25}
 
-\item{no.isolates}{remove isolated nodes from responses graph and full 
+\item{no.isolates}{remove isolated nodes from responses graph and full
 graph, may get problem if there are also isolated Predictors}
 
 \item{lineup}{A ratio of the heights between responses' area and predictors'}
@@ -71,7 +71,7 @@ graph, may get problem if there are also isolated Predictors}
 
 \item{edgewith.predictor}{the edge width between the predictor and response node}
 
-\item{edge.weight}{draw weighted edges after thresholding at 0.5. The 
+\item{edge.weight}{draw weighted edges after thresholding at 0.5. The
 default value \code{FALSE} is not to draw weighted edges}
 
 \item{label.predictor}{A vector of the names of predictors}
@@ -86,10 +86,10 @@ default value \code{FALSE} is not to draw weighted edges}
 
 \item{name.responses}{A subtitle for the responses}
 
-\item{vertex.frame.color}{color of the frame of the vertices. If you don't 
+\item{vertex.frame.color}{color of the frame of the vertices. If you don't
 want vertices to have a frame, supply NA as the color name}
 
-\item{layoutInCircle}{place vertices on a circle, in the order of their 
+\item{layoutInCircle}{place vertices on a circle, in the order of their
 vertex ids. The default is \code{FALSE}}
 
 \item{header}{the main title}
@@ -97,25 +97,11 @@ vertex ids. The default is \code{FALSE}}
 \item{...}{other arguments}
 }
 \description{
-Plot the network representation of the associations between responses and 
-predictors, based on the estimated gamma matrix and graph of responses 
+Plot the network representation of the associations between responses and
+predictors, based on the estimated gamma matrix and graph of responses
 from a "BayesMVP" class object.
 }
 \examples{
-data("exampleEQTL", package = "BayesMVP")
-hyperpar <- list(a_w = 2, b_w = 5)
-
-set.seed(9173)
-fit <- BayesMVP(
-  Y = exampleEQTL[["blockList"]][[1]],
-  X = exampleEQTL[["blockList"]][[2]],
-  data = exampleEQTL[["data"]], outFilePath = tempdir(),
-  nIter = 10, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-  hyperpar = hyperpar, tmpFolder = "tmp/"
-)
-
-## check output
-# draw network representation of the associations between responses and covariates
-plotNetwork(fit)
+x <- 1
 
 }

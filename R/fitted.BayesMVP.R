@@ -1,38 +1,25 @@
 #' @title get fitted responses
 #' @description
-#' Return the fitted response values that correspond to the posterior mean 
+#' Return the fitted response values that correspond to the posterior mean
 #' estimates from a \code{BayesMVP} class object.
 #' @name fitted.BayesMVP
-#' 
+#'
 #' @param object an object of class \code{BayesMVP}
-#' @param beta.type type of estimated beta for the fitted model. Default is 
-#' \code{marginal}, giving marginal beta estimation. If 
-#' \code{beta.type="conditional"}, it gives beta estimation conditional 
+#' @param beta.type type of estimated beta for the fitted model. Default is
+#' \code{marginal}, giving marginal beta estimation. If
+#' \code{beta.type="conditional"}, it gives beta estimation conditional
 #' on gamma=1
-#' @param Pmax valid if \code{beta.type="conditional"}. If 
-#' \code{beta.type="conditional"} and \code{Pmax=0.5}, it gives median 
+#' @param Pmax valid if \code{beta.type="conditional"}. If
+#' \code{beta.type="conditional"} and \code{Pmax=0.5}, it gives median
 #' probability model betas. Default is 0
 #' @param ... other arguments
 #'
-#' @return Fitted values extracted from an object of class \code{BayesMVP}. If 
-#' the \code{BayesMVP} specified data standardization, the fitted values are 
+#' @return Fitted values extracted from an object of class \code{BayesMVP}. If
+#' the \code{BayesMVP} specified data standardization, the fitted values are
 #' base based on standardized data.
 #'
 #' @examples
-#' data("exampleEQTL", package = "BayesMVP")
-#' hyperpar <- list(a_w = 2, b_w = 5)
-#'
-#' set.seed(9173)
-#' fit <- BayesMVP(
-#'   Y = exampleEQTL[["blockList"]][[1]],
-#'   X = exampleEQTL[["blockList"]][[2]],
-#'   data = exampleEQTL[["data"]], outFilePath = tempdir(),
-#'   nIter = 10, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-#'   hyperpar = hyperpar, tmpFolder = "tmp/"
-#' )
-#'
-#' ## check fitted values
-#' fitted.val <- fitted(fit)
+#' x <- 1
 #'
 #' @export
 fitted.BayesMVP <- function(object, Pmax = 0, beta.type = "marginal", ...) {
@@ -43,10 +30,12 @@ fitted.BayesMVP <- function(object, Pmax = 0, beta.type = "marginal", ...) {
     stop("Pmax > 0 is valid only if the argument beta.type = 'conditional'!")
   }
 
-  beta_hat <- getEstimator(object, estimator = "beta", Pmax = Pmax, 
-                           beta.type = beta.type, ...)
+  beta_hat <- getEstimator(object,
+    estimator = "beta", Pmax = Pmax,
+    beta.type = beta.type, ...
+  )
 
-  object$output[-1] <- 
+  object$output[-1] <-
     paste(object$output$outFilePath, object$output[-1], sep = "")
   X <- as.matrix(read.table(object$output$X, header = TRUE))
 

@@ -1,85 +1,53 @@
 #' @title create a selection of plots
 #' @description
-#' plot method for class \code{BayesMVP}. This is the main plot function to be 
-#' called by the user. This function calls one or several of the following 
-#' functions: \code{plotEstimator()}, \code{plotGraph()}, \code{plotMCMCdiag()}, 
+#' plot method for class \code{BayesMVP}. This is the main plot function to be
+#' called by the user. This function calls one or several of the following
+#' functions: \code{plotEstimator()}, \code{plotGraph()}, \code{plotMCMCdiag()},
 #' \code{plotManhattan()}, \code{plotNetwork()}, \code{plotCPO()}.
 #' @importFrom grDevices dev.hold dev.flush devAskNewPage
 #' @name plot.BayesMVP
-#' 
+#'
 #' @param x an object of class \code{BayesMVP}
-#' @param estimator It is in \code{c(NULL, 'beta', 'gamma', 'Gy', 'logP', 'CPO')} 
+#' @param estimator It is in \code{c(NULL, 'beta', 'gamma', 'Gy', 'logP', 'CPO')}
 #' and works by combining with argument \code{type}.
 #' \itemize{
-#'   \item If \code{estimator} is in \code{c("beta", "gamma", "Gy")} and 
-#'   argument \code{type="heatmap"}, it prints heatmaps of the specified 
-#'   estimator in \code{estimator} by a call to to function 
+#'   \item If \code{estimator} is in \code{c("beta", "gamma", "Gy")} and
+#'   argument \code{type="heatmap"}, it prints heatmaps of the specified
+#'   estimator in \code{estimator} by a call to to function
 #'   \code{plotEstimator()} for more other arguments.
-#'   \item If \code{estimator="Gy"} and argument \code{type="graph"}, it prints 
-#'   a structure graph of \code{"Gy"} by a call to function \code{plotGraph()} 
+#'   \item If \code{estimator="Gy"} and argument \code{type="graph"}, it prints
+#'   a structure graph of \code{"Gy"} by a call to function \code{plotGraph()}
 #'   for more other arguments.
-#'   \item If \code{estimator=c("gamma", "Gy")} and argument 
-#'   \code{type="network"}, it prints the estimated network between the 
-#'   response variables and predictors with nonzero coefficients by a call to 
+#'   \item If \code{estimator=c("gamma", "Gy")} and argument
+#'   \code{type="network"}, it prints the estimated network between the
+#'   response variables and predictors with nonzero coefficients by a call to
 #'   function \code{plotMCMCdiag()} for more other arguments.
-#'   \item If \code{estimator=NULL} (default) and \code{type=NULL} (default), 
-#'   it interactively prints the plots of estimators (i.e., beta, gamma 
+#'   \item If \code{estimator=NULL} (default) and \code{type=NULL} (default),
+#'   it interactively prints the plots of estimators (i.e., beta, gamma
 #'   and (or) Gy), response graph Gy, network, Manhattan and MCMC diagnostics.
 #' }
-#' @param type It is one of \code{NULL}, \code{"heatmap"}, \code{"graph"}, 
-#' \code{"network"}, \code{"Manhattan"} and \code{"diagnostics"}, and works by 
+#' @param type It is one of \code{NULL}, \code{"heatmap"}, \code{"graph"},
+#' \code{"network"}, \code{"Manhattan"} and \code{"diagnostics"}, and works by
 #' combining with argument \code{estimator}.
 #' \itemize{
-#'   \item If \code{type="Manhattan"} and argument \code{estimator="gamma"}, 
-#'   it prints Manhattan-like plots for marginal posterior inclusion 
-#'   probabilities (mPIP) and numbers of associated response variables for 
-#'   individual predictors by a call to function \code{plotManhattan()} for 
+#'   \item If \code{type="Manhattan"} and argument \code{estimator="gamma"},
+#'   it prints Manhattan-like plots for marginal posterior inclusion
+#'   probabilities (mPIP) and numbers of associated response variables for
+#'   individual predictors by a call to function \code{plotManhattan()} for
 #'   more other arguments.
-#'   \item If \code{type="diagnostics"} and argument \code{estimator="logP"} 
-#'   it shows trace plots and diagnostic density plots of a fitted model by a 
+#'   \item If \code{type="diagnostics"} and argument \code{estimator="logP"}
+#'   it shows trace plots and diagnostic density plots of a fitted model by a
 #'   call to function \code{plotMCMCdiag()} for more other arguments.
-#'   \item If \code{type="diagnostics"} and argument \code{estimator="CPO"}, 
-#'   it shows the conditional predictive ordinate (CPO) for each individual of 
+#'   \item If \code{type="diagnostics"} and argument \code{estimator="CPO"},
+#'   it shows the conditional predictive ordinate (CPO) for each individual of
 #'   a fitted model by a call to function \code{plotCPO()} for more other arguments.
 #' }
-#' @param ... other arguments, see functions \code{plotEstimator()}, 
-#' \code{plotGraph()}, \code{plotNetwork()}, \code{plotManhattan()}, 
+#' @param ... other arguments, see functions \code{plotEstimator()},
+#' \code{plotGraph()}, \code{plotNetwork()}, \code{plotManhattan()},
 #' \code{plotMCMCdiag()} or \code{plotCPO()}
 #'
 #' @examples
-#' data("exampleEQTL", package = "BayesMVP")
-#' hyperpar <- list(a_w = 2, b_w = 5)
-#'
-#' set.seed(9173)
-#' fit <- BayesMVP(
-#'   Y = exampleEQTL[["blockList"]][[1]],
-#'   X = exampleEQTL[["blockList"]][[2]],
-#'   data = exampleEQTL[["data"]], outFilePath = tempdir(),
-#'   nIter = 2, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-#'   hyperpar = hyperpar, tmpFolder = "tmp/"
-#' )
-#'
-#' ## check output
-#' \dontrun{
-#' ## Show the interactive plots. Note that it needs at least 2000*(nbloc+1) iterations
-#' ## for the diagnostic plots where nbloc=3 by default
-#' # plot(fit)
-#' }
-#'
-#' ## plot heatmaps of the estimated beta, gamma and Gy
-#' plot(fit, estimator = c("beta", "gamma", "Gy"), type = "heatmap")
-#'
-#' ## plot estimated graph of responses Gy
-#' plot(fit, estimator = "Gy", type = "graph")
-#'
-#' ## plot network between response variables and associated predictors
-#' plot(fit, estimator = c("gamma", "Gy"), type = "network")
-#'
-#' ## print Manhattan-like plots
-#' plot(fit, estimator = "gamma", type = "Manhattan")
-#'
-#' ## print MCMC diagnostic plots
-#' #plot(fit, estimator = "logP", type = "diagnostics")
+#' x <- 1
 #'
 #' @export
 plot.BayesMVP <- function(x, estimator = NULL, type = NULL, ...) {
@@ -113,38 +81,38 @@ plot.BayesMVP <- function(x, estimator = NULL, type = NULL, ...) {
     }
 
     ## refer to function plotEstimator()
-    if ((sum(estimator %in% c("beta", "gamma", "Gy")) > 0) && 
-        (type == "heatmap")) {
+    if ((sum(estimator %in% c("beta", "gamma", "Gy")) > 0) &&
+      (type == "heatmap")) {
       plotEstimator(x, estimator, ...)
     }
 
     ## refer to function plotGraph()
-    if ((length(estimator) == 1) && (estimator[1] == "Gy") && 
-        (type == "graph")) {
+    if ((length(estimator) == 1) && (estimator[1] == "Gy") &&
+      (type == "graph")) {
       plotGraph(x, ...)
     }
 
     ## refer to function plotNetwork()
-    if ((length(estimator) == 2) && 
-        (sum(estimator %in% c("gamma", "Gy")) == 2) && (type == "network")) {
+    if ((length(estimator) == 2) &&
+      (sum(estimator %in% c("gamma", "Gy")) == 2) && (type == "network")) {
       plotNetwork(x, ...)
     }
 
     ## refer to function plotManhattan()
-    if ((length(estimator) == 1) && (estimator[1] == "gamma") && 
-        (type == "Manhattan")) {
+    if ((length(estimator) == 1) && (estimator[1] == "gamma") &&
+      (type == "Manhattan")) {
       plotManhattan(x, ...)
     }
 
     ## refer to function plotMCMCdiag()
-    if ((length(estimator) == 1) && (estimator[1] == "logP") && 
-        (type == "diagnostics")) {
+    if ((length(estimator) == 1) && (estimator[1] == "logP") &&
+      (type == "diagnostics")) {
       plotMCMCdiag(x, ...)
     }
 
     ## refer to function plotCPO()
-    if ((length(estimator) == 1) && (estimator[1] == "CPO") && 
-        (type == "diagnostics")) {
+    if ((length(estimator) == 1) && (estimator[1] == "CPO") &&
+      (type == "diagnostics")) {
       plotCPO(x, ...)
     }
   } else {
@@ -165,8 +133,10 @@ plot.BayesMVP <- function(x, estimator = NULL, type = NULL, ...) {
 
       if (show[1L]) {
         dev.hold()
-        plotEstimator(x, estimator = c("beta", "gamma", "Gy"), 
-                      header = "\nEstimators", ...)
+        plotEstimator(x,
+          estimator = c("beta", "gamma", "Gy"),
+          header = "\nEstimators", ...
+        )
         dev.flush()
       }
       if (show[2L]) {

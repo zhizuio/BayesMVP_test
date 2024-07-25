@@ -40,127 +40,127 @@ BayesMVP(
 )
 }
 \arguments{
-\item{data}{a numeric matrix with variables on the columns and observations 
-on the rows, if arguments \code{Y} and \code{X} (and possibly \code{X_0}) 
-are vectors. Can be \code{NULL} if arguments \code{Y} and \code{X} (and 
+\item{data}{a numeric matrix with variables on the columns and observations
+on the rows, if arguments \code{Y} and \code{X} (and possibly \code{X_0})
+are vectors. Can be \code{NULL} if arguments \code{Y} and \code{X} (and
 possibly \code{X_0}) are numeric matrices}
 
-\item{Y, X}{vectors of indices (with respect to the data matrix) for the 
-outcomes (\code{Y}) and the predictors to select (\code{X}) respectively; 
-if the \code{data} argument is \code{NULL}, these needs to be numeric 
-matrices containing the data instead, with variables on the columns and 
+\item{Y, X}{vectors of indices (with respect to the data matrix) for the
+outcomes (\code{Y}) and the predictors to select (\code{X}) respectively;
+if the \code{data} argument is \code{NULL}, these needs to be numeric
+matrices containing the data instead, with variables on the columns and
 observations on the rows}
 
-\item{X_0}{vectors of indices (with respect to the data matrix) for the 
-fixed predictors that are not selected, i.e. always included in the model; 
-if the data argument is not provided, this needs to be a numeric matrix 
-containing the data instead, with variables on the columns and observations 
+\item{X_0}{vectors of indices (with respect to the data matrix) for the
+fixed predictors that are not selected, i.e. always included in the model;
+if the data argument is not provided, this needs to be a numeric matrix
+containing the data instead, with variables on the columns and observations
 on the rows}
 
-\item{covariancePrior}{string indicating the prior for the covariance $C$; 
-it has to be either \code{HIW} for the hyper-inverse-Wishar (which will 
-result in a sparse covariance matrix), \code{IW} for the inverse-Wishart 
-prior (dense covariance) or \code{IG} for independent inverse-Gamma on all 
-the diagonal elements and 0 otherwise. See the details for the model 
+\item{covariancePrior}{string indicating the prior for the covariance $C$;
+it has to be either \code{HIW} for the hyper-inverse-Wishar (which will
+result in a sparse covariance matrix), \code{IW} for the inverse-Wishart
+prior (dense covariance) or \code{IG} for independent inverse-Gamma on all
+the diagonal elements and 0 otherwise. See the details for the model
 specification}
 
-\item{gammaPrior}{string indicating the gamma prior to use, either 
-\code{hotspot} (default) for the Hotspot prior of Bottolo (2011), \code{MRF} 
-for the Markov Random Field prior or \code{hierarchical} for a simpler 
+\item{gammaPrior}{string indicating the gamma prior to use, either
+\code{hotspot} (default) for the Hotspot prior of Bottolo (2011), \code{MRF}
+for the Markov Random Field prior or \code{hierarchical} for a simpler
 hierarchical prior. See the details for the model specification}
 
-\item{betaPrior}{string indicating the prior for regression coefficients; it 
-has to be either \code{independent} for independent spike-and-slab priors 
-(only slab part for \code{X_0} if specified), or \code{reGroup} for weakly 
-normal priors for mandatory variables (random effects) and spike-and-slab 
+\item{betaPrior}{string indicating the prior for regression coefficients; it
+has to be either \code{independent} for independent spike-and-slab priors
+(only slab part for \code{X_0} if specified), or \code{reGroup} for weakly
+normal priors for mandatory variables (random effects) and spike-and-slab
 priors for other variables of Zhao (2023)}
 
 \item{nIter}{number of iterations for the MCMC procedure. Default 10000}
 
-\item{burnin}{number of iterations to discard at the start of the chain. 
+\item{burnin}{number of iterations to discard at the start of the chain.
 Default is 5000}
 
-\item{nChains}{number of parallel tempered chains to run (default 2). The 
+\item{nChains}{number of parallel tempered chains to run (default 2). The
 temperature is adapted during the burnin phase}
 
 \item{outFilePath}{path to where the output files are to be written}
 
-\item{gammaSampler}{string indicating the type of sampler for gamma, either 
-\code{bandit} for the Thompson sampling inspired samper or \code{MC3} for 
-the usual MC^3 sampler.  See Russo et al.(2018) or Madigan and York (1995) 
+\item{gammaSampler}{string indicating the type of sampler for gamma, either
+\code{bandit} for the Thompson sampling inspired samper or \code{MC3} for
+the usual MC^3 sampler.  See Russo et al.(2018) or Madigan and York (1995)
 for details}
 
-\item{gammaInit}{gamma initialisation to either all-zeros (\code{0}), all 
+\item{gammaInit}{gamma initialisation to either all-zeros (\code{0}), all
 ones (\code{1}), MLE-informed (\code{MLE}) or (default) randomly (\code{R})}
 
-\item{mrfG}{either a matrix or a path to the file containing (the edge list 
+\item{mrfG}{either a matrix or a path to the file containing (the edge list
 of) the G matrix for the MRF prior on gamma (if necessary)}
 
-\item{standardize}{logical flag for X variable standardization. Default is 
+\item{standardize}{logical flag for X variable standardization. Default is
 \code{standardize=TRUE}. Coefficients are returned on the standardized scale}
 
-\item{standardize.response}{logical flag for Y standardization. Default is 
+\item{standardize.response}{logical flag for Y standardization. Default is
 \code{standardize.response=TRUE}}
 
-\item{maxThreads}{maximum threads used for parallelization. Default is 1. 
-Reproducibility of results with \code{set.seed()} is only guaranteed if 
+\item{maxThreads}{maximum threads used for parallelization. Default is 1.
+Reproducibility of results with \code{set.seed()} is only guaranteed if
 \code{maxThreads=1}}
 
-\item{tick}{an integer used for printing the iteration index and some updated 
+\item{tick}{an integer used for printing the iteration index and some updated
 parameters every tick-th iteration. Default is 1000}
 
-\item{output_gamma}{allow (\code{TRUE}) or suppress (\code{FALSE}) the 
+\item{output_gamma}{allow (\code{TRUE}) or suppress (\code{FALSE}) the
 output for  gamma. See the return value below for more information}
 
-\item{output_beta}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output 
+\item{output_beta}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output
 for beta. See the return value below for more information}
 
-\item{output_Gy}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output 
+\item{output_Gy}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output
 for Gy. See the return value below for more information}
 
-\item{output_sigmaRho}{allow (\code{TRUE}) or suppress (\code{FALSE}) the 
+\item{output_sigmaRho}{allow (\code{TRUE}) or suppress (\code{FALSE}) the
 output for sigmaRho. See the return value below for more information}
 
-\item{output_pi}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output 
+\item{output_pi}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output
 for pi. See the return value below for more information}
 
-\item{output_tail}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output 
-for tail (hotspot tail probability). See the return value below for more 
+\item{output_tail}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output
+for tail (hotspot tail probability). See the return value below for more
 information}
 
-\item{output_model_size}{allow (\code{TRUE}) or suppress (\code{FALSE}) the 
+\item{output_model_size}{allow (\code{TRUE}) or suppress (\code{FALSE}) the
 output for model_size. See the return value below for more information}
 
-\item{output_model_visit}{allow (\code{TRUE}) or suppress (\code{FALSE}) the 
-output for all visited models over the MCMC iterations. Default is 
+\item{output_model_visit}{allow (\code{TRUE}) or suppress (\code{FALSE}) the
+output for all visited models over the MCMC iterations. Default is
 \code{FALSE}. See the return value below for more information}
 
-\item{output_CPO}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output 
+\item{output_CPO}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output
 for (scaled) conditional predictive ordinates (\code{*_CPO_out.txt}),
-CPO with joint posterior predictive of the response variables 
-(\code{*_CPOsumy_out.txt}) and widely applicable information criterion 
+CPO with joint posterior predictive of the response variables
+(\code{*_CPOsumy_out.txt}) and widely applicable information criterion
 (\code{*_WAIC_out.txt}). See the return value below for more information}
 
-\item{output_Y}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output 
+\item{output_Y}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output
 for responses dataset Y}
 
-\item{output_X}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output 
+\item{output_X}{allow (\code{TRUE}) or suppress (\code{FALSE}) the output
 for predictors dataset X}
 
-\item{hyperpar}{a list of named hypeparameters to use instead of the default 
-values. Valid names are mrf_d, mrf_e, a_sigma, b_sigma, a_tau, b_tau, nu, 
-a_eta, b_eta, a_o, b_o, a_pi, b_pi, a_w and b_w. Their default values are 
-a_w=2, b_w=5, a_omega=2, b_omega=1, a_o=2, b_o=p-2, a_pi=2, b_pi=1, nu=s+2, 
-a_tau=0.1, b_tau=10, a_eta=0.1, b_eta=1, a_sigma=1, b_sigma=1, mrf_d=-3 and 
+\item{hyperpar}{a list of named hypeparameters to use instead of the default
+values. Valid names are mrf_d, mrf_e, a_sigma, b_sigma, a_tau, b_tau, nu,
+a_eta, b_eta, a_o, b_o, a_pi, b_pi, a_w and b_w. Their default values are
+a_w=2, b_w=5, a_omega=2, b_omega=1, a_o=2, b_o=p-2, a_pi=2, b_pi=1, nu=s+2,
+a_tau=0.1, b_tau=10, a_eta=0.1, b_eta=1, a_sigma=1, b_sigma=1, mrf_d=-3 and
 mrf_e=0.03. See the vignette for more information}
 
-\item{tmpFolder}{the path to a temporary folder where intermediate data 
-files are stored (will be erased at the end of the chain). It is specified 
+\item{tmpFolder}{the path to a temporary folder where intermediate data
+files are stored (will be erased at the end of the chain). It is specified
 relative to \code{outFilePath}}
 }
 \value{
-An object of class \code{BayesMVP} is saved as 
-\code{obj_BayesMVP.RData} in the output file, including the following 
+An object of class \code{BayesMVP} is saved as
+\code{obj_BayesMVP.RData} in the output file, including the following
 components:
 \itemize{
 \item status - the running status
@@ -188,20 +188,20 @@ components:
 }
 }
 \description{
-Main function of the package. Fits a range of models introduced in the 
-package vignette \code{BayesMVP.pdf}. Returns an object of S3 class 
-\code{BayesMVP}. There are three options for the prior on the residual 
-covariance matrix (i.e., independent inverse-Gamma, inverse-Wishart and 
-hyper-inverse Wishart) and three options for the prior on the latent 
-indicator variable (i.e., independent Bernoulli, hotspot and Markov random 
+Main function of the package. Fits a range of models introduced in the
+package vignette \code{BayesMVP.pdf}. Returns an object of S3 class
+\code{BayesMVP}. There are three options for the prior on the residual
+covariance matrix (i.e., independent inverse-Gamma, inverse-Wishart and
+hyper-inverse Wishart) and three options for the prior on the latent
+indicator variable (i.e., independent Bernoulli, hotspot and Markov random
 field). So there are nine models in total. See details for their combinations.
 }
 \details{
-The arguments \code{covariancePrior} and \code{gammaPrior} specify 
-the model HRR, dSUR or SSUR with different gamma prior. Let 
-\eqn{\gamma_{jk}} be latent indicator variable of each coefficient and 
-\eqn{C} be covariance matrix of response variables. The nine models 
-specified through the arguments \code{covariancePrior} and 
+The arguments \code{covariancePrior} and \code{gammaPrior} specify
+the model HRR, dSUR or SSUR with different gamma prior. Let
+\eqn{\gamma_{jk}} be latent indicator variable of each coefficient and
+\eqn{C} be covariance matrix of response variables. The nine models
+specified through the arguments \code{covariancePrior} and
 \code{gammaPrior} are as follows.
 \tabular{cccc}{
                 \tab \eqn{\gamma_{jk}}~Bernoulli \tab \eqn{\gamma_{jk}}~hotspot \tab \eqn{\gamma}~MRF \cr
@@ -211,35 +211,7 @@ specified through the arguments \code{covariancePrior} and
 }
 }
 \examples{
-data("exampleEQTL", package = "BayesMVP")
-hyperpar <- list(a_w = 2, b_w = 5)
-set.seed(9173)
-fit <- BayesMVP(
-  Y = exampleEQTL[["blockList"]][[1]],
-  X = exampleEQTL[["blockList"]][[2]],
-  data = exampleEQTL[["data"]], outFilePath = tempdir(),
-  nIter = 5, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-  hyperpar = hyperpar, tmpFolder = "tmp/", output_CPO = TRUE
-)
-
-## check output
-# show the summary information
-summary(fit)
-
-# show the estimated beta, gamma and graph of responses Gy
-plot(fit, estimator = c("beta", "gamma", "Gy"), type = "heatmap")
-
-\dontrun{
-## Set up temporary work directory for saving a pdf figure
-# td <- tempdir()
-# oldwd <- getwd()
-# setwd(td)
-
-## Produce authentic math formulas in the graph
-# plot(fit, estimator = c("beta", "gamma", "Gy"), type = "heatmap", fig.tex = TRUE)
-# system(paste(getOption("pdfviewer"), "ParamEstimator.pdf"))
-# setwd(oldwd)
-}
+x <- 1
 
 }
 \references{

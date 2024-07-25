@@ -3,19 +3,20 @@
 <!-- badges: start --
 
 [![CRAN](http://www.r-pkg.org/badges/version/BayesMVP)](https://cran.r-project.org/package=BayesMVP)
-[![r-universe](https://mbant.r-universe.dev/badges/BayesMVP)](https://mbant.r-universe.dev/BayesMVP)
-[![R-CMD-check](https://github.com/zhizuio/BayesMVP/workflows/R-CMD-check/badge.svg)](https://github.com/zhizuio/BayesMVP/actions)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![r-universe](https://zhizuio.r-universe.dev/badges/BayesMVP)](https://zhizuio.r-universe.dev/BayesMVP)
 [![DOI](https://img.shields.io/badge/doi-10.32614%2FCRAN.package.BayesMVP-brightgreen)](https://doi.org/10.32614/CRAN.package.BayesMVP)
 
 -- badges: end -->
 
+[![R-CMD-check](https://github.com/zhizuio/BayesMVP/workflows/R-CMD-check/badge.svg)](https://github.com/zhizuio/BayesMVP/actions)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-This R package is for high-dimensional Bayesian multivariate probit regression with general variable selection and dense/sparse covariance matrix, including extended methods from [Bottolo et al. (2021)](https://doi.org/10.1111/rssc.12490), [Zhao et al. (2021)](https://doi.org/10.18637/jss.v100.i11) and [Zhao et al. (2024)](https://doi.org/10.1093/jrsssc/qlad102). 
+
+This R package is for high-dimensional Bayesian multivariate probit (BayesMVP) models with general variable selection and dense/sparse covariance matrix, including extended methods from [Bottolo et al. (2021)](https://doi.org/10.1111/rssc.12490), [Zhao et al. (2021)](https://doi.org/10.18637/jss.v100.i11) and [Zhao et al. (2024)](https://doi.org/10.1093/jrsssc/qlad102). 
 
 ## Installation
 
-Install the latest development version from [GitHub](https://github.com/mbant/BayesMVP)
+Install the latest development version from [GitHub](https://github.com/zhizuio/BayesMVP)
 
 ```r
 #install.packages("remotes")

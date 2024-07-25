@@ -9,37 +9,24 @@
 \arguments{
 \item{object}{an object of class \code{BayesMVP}}
 
-\item{beta.type}{type of output beta. Default is \code{marginal}, giving 
-marginal beta estimation. If \code{beta.type="conditional"}, it gives beta 
+\item{beta.type}{type of output beta. Default is \code{marginal}, giving
+marginal beta estimation. If \code{beta.type="conditional"}, it gives beta
 estimation conditional on gamma=1.}
 
-\item{Pmax}{If \code{Pmax=0.5} and \code{beta.type="conditional"}, it gives 
+\item{Pmax}{If \code{Pmax=0.5} and \code{beta.type="conditional"}, it gives
 median probability model betas. Default is 0.}
 
 \item{...}{other arguments}
 }
 \value{
-Estimated coefficients are from an object of class \code{BayesMVP}. 
-If the \code{BayesMVP} specified data standardization, the fitted values 
+Estimated coefficients are from an object of class \code{BayesMVP}.
+If the \code{BayesMVP} specified data standardization, the fitted values
 are base based on standardized data.
 }
 \description{
 Extract the posterior mean of the coefficients of a \code{BayesMVP} class object
 }
 \examples{
-data("exampleQTL", package = "BayesMVP")
-hyperpar <- list(a_w = 2, b_w = 5)
-
-set.seed(9173)
-fit <- BayesMVP(
-  Y = exampleEQTL[["blockList"]][[1]],
-  X = exampleEQTL[["blockList"]][[2]],
-  data = exampleEQTL[["data"]], outFilePath = tempdir(),
-  nIter = 10, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-  hyperpar = hyperpar, tmpFolder = "tmp/"
-)
-
-## check prediction
-beta.hat <- coef(fit)
+x <- 1
 
 }

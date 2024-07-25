@@ -23,21 +23,14 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 This R package is for high-dimensional multivariate Bayesian variable and covariance selection in Probit models, including methods in [Bottolo et al. (2021)](https://doi.org/10.1111/rssc.12490), [Zhao et al. (2021)](https://doi.org/10.18637/jss.v100.i11) and [Zhao et al. (2024)](https://doi.org/10.1093/jrsssc/qlad102). 
-See the package vignettes [`BayesMVP.pdf`](inst/doc/BayesMVP.pdf) for more information and an additional example below for the BayesMVP model with random effects.
 
 ## Installation
 
-Install the latest released version from [CRAN](https://CRAN.R-project.org/package=BayesMVP)
-
-```r
-install.packages("BayesMVP")
-```
-
-Install the latest development version from [GitHub](https://github.com/mbant/BayesMVP)
+Install the latest development version from [GitHub](https://github.com/zhizuio/BayesMVP)
 
 ```r
 #install.packages("remotes")
-remotes::install_github("mbant/BayesMVP/BayesMVP")
+remotes::install_github("zhizuio/BayesMVP")
 ```
 
 ## Examples

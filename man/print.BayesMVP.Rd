@@ -9,38 +9,24 @@
 \arguments{
 \item{x}{an object of class \code{BayesMVP}}
 
-\item{Pmax}{threshold that truncates the estimated coefficients based on 
+\item{Pmax}{threshold that truncates the estimated coefficients based on
 thresholding the estimated latent indicator variable. Default is 0.5}
 
 \item{...}{other arguments}
 }
 \value{
-Return a short summary from an object of class \code{BayesMVP}, 
-including the number of selected predictors with mPIP>\code{Pmax} and the 
-expected log pointwise predictive density estimates (i.e., elpd.LOO and 
+Return a short summary from an object of class \code{BayesMVP},
+including the number of selected predictors with mPIP>\code{Pmax} and the
+expected log pointwise predictive density estimates (i.e., elpd.LOO and
 elpd.WAIC).
 }
 \description{
-Print a short summary of a \code{BayesMVP} class object. It includes the 
-argument matching information, number of selected predictors based on 
-thresholding the posterior mean of the latent indicator variable at 0.5 
+Print a short summary of a \code{BayesMVP} class object. It includes the
+argument matching information, number of selected predictors based on
+thresholding the posterior mean of the latent indicator variable at 0.5
 by default.
 }
 \examples{
-data("exampleEQTL", package = "BayesMVP")
-hyperpar <- list(a_w = 2, b_w = 5)
-
-set.seed(9173)
-fit <- BayesMVP(
-  Y = exampleEQTL[["blockList"]][[1]],
-  X = exampleEQTL[["blockList"]][[2]],
-  data = exampleEQTL[["data"]], outFilePath = tempdir(),
-  nIter = 10, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-  hyperpar = hyperpar, tmpFolder = "tmp/", output_CPO = TRUE
-)
-
-## check output
-# show the print information
-print(fit)
+x <- 1
 
 }

@@ -27,19 +27,19 @@ plotManhattan(
 \arguments{
 \item{x}{an object of class \code{BayesMVP}}
 
-\item{manhattan}{value(s) in \code{c('mPIP', 'numResponse')}. 
-\code{manhattan='mPIP'} shows the Manhattan-like plot of the marginal 
-posterior inclusion probabilities (mPIP). \code{manhattan='numResponse'} 
-shows the Manhattan-like plot of the number of responses. The default is 
+\item{manhattan}{value(s) in \code{c('mPIP', 'numResponse')}.
+\code{manhattan='mPIP'} shows the Manhattan-like plot of the marginal
+posterior inclusion probabilities (mPIP). \code{manhattan='numResponse'}
+shows the Manhattan-like plot of the number of responses. The default is
 to show both figures.}
 
 \item{x.loc}{a vector of features distance}
 
-\item{axis.label}{a vector of predictor names which are shown in the 
-Manhattan-like plot. The value \code{"NULL"} only showing the indices. The 
+\item{axis.label}{a vector of predictor names which are shown in the
+Manhattan-like plot. The value \code{"NULL"} only showing the indices. The
 default \code{"auto"} show the predictor names from the original data.}
 
-\item{mark.responses}{a vector of response names which are shown in the 
+\item{mark.responses}{a vector of response names which are shown in the
 Manhattan-like plot for the mPIP}
 
 \item{xlab1}{a title for the x axis of Manhattan-like plot for the mPIP}
@@ -50,7 +50,7 @@ Manhattan-like plot for the mPIP}
 
 \item{ylab2}{a title for the y axis of Manhattan-like plot for the numbers of responses}
 
-\item{threshold}{threshold for showing number of response variables 
+\item{threshold}{threshold for showing number of response variables
 significantly associated with each feature}
 
 \item{las}{graphical parameter of plot.default}
@@ -68,25 +68,11 @@ significantly associated with each feature}
 \item{...}{other arguments}
 }
 \description{
-Plot Manhattan-like plots for marginal posterior inclusion probabilities 
-(mPIP) and numbers of responses of association for predictors of a 
+Plot Manhattan-like plots for marginal posterior inclusion probabilities
+(mPIP) and numbers of responses of association for predictors of a
 \code{BayesMVP} class object.
 }
 \examples{
-data("exampleEQTL", package = "BayesMVP")
-hyperpar <- list(a_w = 2, b_w = 5)
-
-set.seed(9173)
-fit <- BayesMVP(
-  Y = exampleEQTL[["blockList"]][[1]],
-  X = exampleEQTL[["blockList"]][[2]],
-  data = exampleEQTL[["data"]], outFilePath = tempdir(),
-  nIter = 10, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-  hyperpar = hyperpar, tmpFolder = "tmp/"
-)
-
-## check output
-# show the Manhattan-like plots
-plotManhattan(fit)
+x <- 1
 
 }

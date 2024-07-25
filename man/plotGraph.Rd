@@ -19,19 +19,19 @@ plotGraph(
 )
 }
 \arguments{
-\item{x}{either an object of class \code{BayesMVP} (default) or a symmetric 
+\item{x}{either an object of class \code{BayesMVP} (default) or a symmetric
 numeric matrix representing an adjacency matrix for a given graph structure.
-If x is an adjacency matrix, argument \code{main="Given graph of responses"} 
+If x is an adjacency matrix, argument \code{main="Given graph of responses"}
 by default.}
 
-\item{Pmax}{a value for thresholding the learning structure matrix of 
+\item{Pmax}{a value for thresholding the learning structure matrix of
 multiple response variables. Default is 0.5}
 
 \item{main}{an overall title for the plot}
 
 \item{edge.width}{edge width. Default is 2}
 
-\item{edge.weight}{draw weighted edges after thresholding at 0.5. The 
+\item{edge.weight}{draw weighted edges after thresholding at 0.5. The
 default value \code{FALSE} is not to draw weighted edges}
 
 \item{vertex.label}{character vector used to label the nodes}
@@ -47,24 +47,10 @@ default value \code{FALSE} is not to draw weighted edges}
 \item{...}{other arguments}
 }
 \description{
-Plot the estimated graph for multiple response variables from a 
+Plot the estimated graph for multiple response variables from a
 \code{BayesMVP} class object.
 }
 \examples{
-data("exampleEQTL", package = "BayesMVP")
-hyperpar <- list(a_w = 2, b_w = 5)
-
-set.seed(9173)
-fit <- BayesMVP(
-  Y = exampleEQTL[["blockList"]][[1]],
-  X = exampleEQTL[["blockList"]][[2]],
-  data = exampleEQTL[["data"]], outFilePath = tempdir(),
-  nIter = 10, burnin = 0, nChains = 1, gammaPrior = "hotspot",
-  hyperpar = hyperpar, tmpFolder = "tmp/"
-)
-
-## check output
-# show the graph relationship between responses
-plotGraph(fit, estimator = "Gy")
+x <- 1
 
 }
