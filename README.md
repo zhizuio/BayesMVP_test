@@ -12,7 +12,6 @@
 
 
 This R package is for high-dimensional Bayesian multivariate probit regression with general variable selection and dense/sparse covariance matrix, including extended methods from [Bottolo et al. (2021)](https://doi.org/10.1111/rssc.12490), [Zhao et al. (2021)](https://doi.org/10.18637/jss.v100.i11) and [Zhao et al. (2024)](https://doi.org/10.1093/jrsssc/qlad102). 
-See the package vignettes [`BayesMVP.pdf`](inst/doc/BayesMVP.pdf) for more information and an additional example below for the BayesMVP model with random effects.
 
 ## Installation
 
