@@ -16,11 +16,11 @@ This R package is for high-dimensional Bayesian multivariate probit (BayesMVP) m
 
 ## Installation
 
-Install the latest development version from [GitHub](https://github.com/zhizuio/BayesMVP)
+Install the latest development version from [GitHub](https://github.com/zhizuio/BayesMVP_test)
 
 ```r
 #install.packages("remotes")
-remotes::install_github("zhizuio/BayesMVP")
+remotes::install_github("zhizuio/BayesMVP_test")
 ```
 
 ## Examples
